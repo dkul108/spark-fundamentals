@@ -2,6 +2,7 @@ package training.day1.accumulators;
 
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.util.LongAccumulator;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -23,13 +24,16 @@ public class BrokenAliceCountJava {
         //Attempt to create counter
         AtomicInteger brokenCounter = new AtomicInteger(0);
 
+        LongAccumulator counter = spark.sparkContext().longAccumulator("aliceCount");
+
         //Transforming text to words and trying to count alice words on the way
         JavaRDD<String> words = input
                 .flatMap(word -> Arrays.asList(word.split(" ")).iterator())
                 .map(word -> {
                     String cleanWord = word.toLowerCase().replaceAll("[^a-z]", "");
                     if (cleanWord.equals("alice")) {
-                        brokenCounter.incrementAndGet();
+                        //brokenCounter.incrementAndGet();
+                        counter.add(1);
                     }
                     return cleanWord;
                 });
