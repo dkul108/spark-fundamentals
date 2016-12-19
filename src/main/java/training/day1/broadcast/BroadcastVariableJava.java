@@ -31,7 +31,7 @@ public class BroadcastVariableJava {
         //Filter line that contain at least one main character
         JavaRDD<String> linesRdd = input.filter(line -> {
             //TODO
-            Stream characterStream
+            //Stream characterStream
             return false;
         });
 

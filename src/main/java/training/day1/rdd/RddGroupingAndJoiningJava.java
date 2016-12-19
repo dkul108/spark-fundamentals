@@ -38,7 +38,7 @@ public class RddGroupingAndJoiningJava {
 
         //TODO
         //Group persons by city
-        Map<String, Iterable<Person>> groupedByCity = personRdd.groupBy(person->person.collectAsMap);
+        Map<String, Iterable<Person>> groupedByCity = null;//personRdd.groupBy(person -> person.getFirstName()/*. collectAsMap()*/);
         for (Map.Entry<String, Iterable<Person>> entry : groupedByCity.entrySet()) {
             System.out.println(entry.getKey() + " persons: " + entry.getValue());
         }
@@ -49,8 +49,8 @@ public class RddGroupingAndJoiningJava {
 
         //TODO
         //Join two RDDs and print zip code for each person
-        JavaPairRDD<String, Tuple2<Person, String>> joined = personPairRDD.join(........)
-        Map<Person, String> personToZipCode = joined.values(........
+        JavaPairRDD<String, Tuple2<Person, String>> joined = null;//personPairRDD.join(........)
+        Map<Person, String> personToZipCode = null;//joined.values(........
         for (Map.Entry<Person, String> entry : personToZipCode.entrySet()) {
             System.out.println(entry.getKey() + " zip code: " + entry.getValue());
         }

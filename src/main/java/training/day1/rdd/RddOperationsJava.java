@@ -30,18 +30,15 @@ public class RddOperationsJava {
 
         //TODO
         //Find what is the most frequent word length in text
-        Integer mostFrequentWordLength = text.
+        Integer mostFrequentWordLength =
+                text.
                 flatMap(x -> Arrays.asList(x.split(" ")).iterator())
                 .map(word -> word.toLowerCase().replaceAll("[^a-z]", ""))
                 .filter(str -> !str.isEmpty())
                 .keyBy(word -> word.length())
                 .aggregateByKey(0, (count, word) -> count + 1, (c1, c2) -> c1 + c2).
-                //.groupByKey()//mapValues()
-                //1.max((touple1, touple2)->touple1
-                //.sortByKey(false)
-//                .keys().
-//                        first();
-        max(new SerializableComparator());
+                max(new SerializableComparator()).
+                 _1();
 
         System.out.println("Most frequent word length in text is " + mostFrequentWordLength);
 
