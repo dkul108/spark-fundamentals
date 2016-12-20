@@ -22,7 +22,6 @@ public class RddGroupingAndJoiningJava {
                 .getOrCreate();
 
         JavaSparkContext sparkContext = new JavaSparkContext(spark.sparkContext());
-
         JavaRDD<Person> personRdd = sparkContext
                 .textFile(DATA_DIRECTORY_PATH + "persons.csv")
                 .map(line -> {
@@ -39,23 +38,19 @@ public class RddGroupingAndJoiningJava {
 
         //TODO
         //Group persons by city
-        Map<String, Iterable<Person>> groupedByCity =
-                                                personRdd.
-                                                groupBy(person -> person.getCity()).
-                                                collectAsMap();
-
+        Map<String, Iterable<Person>> groupedByCity = null;
         for (Map.Entry<String, Iterable<Person>> entry : groupedByCity.entrySet()) {
             System.out.println(entry.getKey() + " persons: " + entry.getValue());
         }
 
         //TODO
         //Create pair rdd where key is a city and value is person
-        JavaPairRDD<String, Person> personPairRDD = personRdd.keyBy(Person::getCity);
+        JavaPairRDD<String, Person> personPairRDD = null;
 
         //TODO
         //Join two RDDs and print zip code for each person
-        JavaPairRDD<String, Tuple2<Person, String>> joined = personPairRDD.join(zipcodeRDD).groupByKey();
-        Map<Person, String> personToZipCode = null;//joined.values(........
+        JavaPairRDD<String, Tuple2<Person, String>> joined = null;
+        Map<Person, String> personToZipCode = null;
         for (Map.Entry<Person, String> entry : personToZipCode.entrySet()) {
             System.out.println(entry.getKey() + " zip code: " + entry.getValue());
         }

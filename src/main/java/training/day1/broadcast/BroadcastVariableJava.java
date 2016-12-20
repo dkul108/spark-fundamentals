@@ -26,12 +26,12 @@ public class BroadcastVariableJava {
         List<String> mainCharacters = Arrays.asList("Alice", "Hatter", "Rabbit");
         //TODO
         //Create broadcast variable for mainCharacters using sparkContext object
-        Broadcast<List<String>> broadcast = sparkContext.broadcast(mainCharacters);
+        Broadcast<List<String>> broadcast = null;
 
         //Filter line that contain at least one main character
         JavaRDD<String> linesRdd = input.filter(line -> {
             //TODO
-            //Stream characterStream
+            //implement me
             return false;
         });
 
