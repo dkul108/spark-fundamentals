@@ -1,8 +1,5 @@
 Apache Spark Fundamentals training practice
 ===
 
-consumerKey=d6z5lddusGje75KRHwtusrHwv
-consumerSecret=gX20Cca9lMO0NVa53jX5gnOb0lBmueiwzC9z9KUBzKzIk4rh44
-accessToken=3040806039-GGOeFbITRSHkfwGmrVyugVwh2IaghnxoG3kbrcp
-accessTokenSecret=0KcntPdi0nmRDlMtLI8mkq4UV1IwNCaysD6YrEX0yCqgy
+
 

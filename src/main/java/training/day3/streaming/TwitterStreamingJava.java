@@ -8,6 +8,7 @@ import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.twitter.TwitterUtils;
 import scala.Tuple2;
+import twitter4j.HashtagEntity;
 import twitter4j.Status;
 
 import java.io.IOException;
@@ -28,6 +29,11 @@ public class TwitterStreamingJava {
 
         setupOAuth();
         JavaDStream<Status> tweets = TwitterUtils.createStream(jssc);
+
+//        Status status = null;
+//        HashtagEntity[] hashtagEntities = status.getHashtagEntities();
+//        hashtagEntities[0].getText();
+//        status.getText();
 
         //Print tweets
         tweets.map(status -> status.getText()).print();
