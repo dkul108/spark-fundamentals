@@ -14,7 +14,7 @@ public class NetworkWordCountJava {
     public static void main(String[] args) throws InterruptedException {
         SparkSession spark = SparkSession
                 .builder()
-                .master("local[*]")
+                .master("local[2]")
                 .appName("Network word count java")
                 .getOrCreate();
 
