@@ -5,7 +5,7 @@ import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 object NetworkWordCountScala {
-  def main(args: Array[String]): Unit = {
+  def  main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder
       .master("local[2]")

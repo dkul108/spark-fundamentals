@@ -16,7 +16,7 @@ object TwitterStreamingScala {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder
-      .master("local[*]")
+      .master("local[2]")
       .appName("Twitter streaming scala")
       .getOrCreate()
 

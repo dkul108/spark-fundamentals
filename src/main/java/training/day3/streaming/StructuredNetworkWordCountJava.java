@@ -11,7 +11,7 @@ public class StructuredNetworkWordCountJava {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
                 .builder()
-                .master("local[*]")
+                .master("local[2]")
                 .appName("Structured network word count java")
                 .getOrCreate();
 

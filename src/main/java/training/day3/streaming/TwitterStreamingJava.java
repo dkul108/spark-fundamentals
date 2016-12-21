@@ -19,7 +19,7 @@ public class TwitterStreamingJava {
     public static void main(String[] args) throws Exception {
         SparkSession spark = SparkSession
                 .builder()
-                .master("local[*]")
+                .master("local[2]")
                 .appName("Twitter streaming java")
                 .getOrCreate();
 
