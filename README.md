@@ -11,3 +11,5 @@ https://0x0fff.com/spark-architecture/
 http://www.cloudera.com/downloads/quickstart_vms/5-8.html
 https://blog.cloudera.com/
 https://www.hadoopweekly.com/
+
+http://www.allitebooks.com/?s=spark
