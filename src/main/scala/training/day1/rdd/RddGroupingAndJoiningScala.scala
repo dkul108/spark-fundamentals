@@ -27,19 +27,22 @@ object RddGroupingAndJoiningScala {
 
     //TODO
     //Group persons by city
-    val groupedByCity: Map[String, Person] = null
+    val groupedByCity: collection.Map[String, Iterable[Person]] = personRdd.groupBy(p => p.city).collectAsMap
     for ((city, persons) <- groupedByCity) {
       println(s"$city persons: $persons")
     }
 
     //TODO
     //Create pair rdd where key is a city and value is person
-    val personPairRDD = null
+    val personPairRDD = personRdd.map(p => (p.city, p))
 
     //TODO
     //Join two RDDs and print zip code for each person
-    val joined = null
-    val personToZipCode: Map[Person, String] = null
+    val joined = personPairRDD.join(zipCodeRdd)
+    //val personToZipCode: Map[Person, String] = joined.map(pair => (pair._2._1, pair._1)).collectAsMap
+    val personToZipCode = {
+      joined.map(pair => (pair._2._1, pair._1)).collectAsMap
+    }
     for ((person, zipCode) <- personToZipCode) {
       println(s"$person zip code: $zipCode")
     }

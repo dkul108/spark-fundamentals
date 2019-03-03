@@ -15,10 +15,10 @@ object BroadcastVariableScala {
     val mainCharacters = Seq("Alice", "Hatter", "Rabbit")
     //TODO
     //Create broadcast variable for mainCharacters using sparkContext object
-    val broadcast = null
+    val broadcast = spark.sparkContext.broadcast(mainCharacters)
 
     //Filter line that contain at least one main character
-    val linesRdd = input.filter(line => /* implement me */ false)
+    val linesRdd = input.filter(line => /* implement me */ line.split(" ").intersect(broadcast.value).size > 0)
     val lines = linesRdd.collect
 
     lines.foreach(println)

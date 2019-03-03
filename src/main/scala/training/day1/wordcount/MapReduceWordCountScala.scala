@@ -115,7 +115,7 @@ object MapReduceWordCountScala {
 
     //TODO
     //Write map reduce logic to calculate word counts
-    val wordCounts: Map[String, Int] = null
+    val wordCounts = words.map(w=>(w, 1)).reduceByKey(_+_).collectAsMap()
 
     println(s"Word count map: $wordCounts")
     println(s"Hatter count is ${wordCounts("Hatter")}")

@@ -27,7 +27,7 @@ public class BrokenAliceCountJava {
         JavaRDD<String> words = input
                 .flatMap(word -> Arrays.asList(word.split(" ")).iterator())
                 .map(word -> {
-                    String cleanWord = word.toLowerCase().replaceAll("[^a-z]", "");
+                    String cleanWord = word.toLowerCase().replaceAll("[^A-Za-z]", "");
                     if (cleanWord.equals("alice")) {
                         brokenCounter.incrementAndGet();
                     }

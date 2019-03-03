@@ -1,6 +1,7 @@
 package training.day1.wordcount;
 
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
 
@@ -125,7 +126,11 @@ public class MapReduceWordCountJava {
 
         //TODO
         //Write map reduce logic to calculate word counts
-        Map<String, Integer> wordCounts = null;
+        Map<String, Integer> wordCounts = words
+                .mapToPair(w->new Tuple2<>(w, 1))
+                .reduceByKey((x,y) -> x + y, 1)
+                .collectAsMap();
+
 
         System.out.println("Word count map: " + wordCounts);
         System.out.println("Hatter count is " + wordCounts.get("hatter"));

@@ -14,6 +14,9 @@ object AccumulatorAliceCountScala {
     //Create counter using spark accumulator
     //hint: Accumulator can be created using spark.sparkContext()
 
+    val counter = spark.sparkContext.longAccumulator("counter")
+
+
     //Create rdd for the text file
     val input = spark.sparkContext.textFile(DATA_DIRECTORY_PATH + "alice-in-wonderland.txt")
 
@@ -23,6 +26,7 @@ object AccumulatorAliceCountScala {
       if (cleanWord == "Alice") {
         //TODO
         //increment
+        counter.add(1)
       }
       cleanWord
     })
@@ -30,7 +34,8 @@ object AccumulatorAliceCountScala {
     //Action that triggers computation
     val wordCounts = words.countByValue()
 
-    println("Count of word 'Alice' using accumulator: " + null) //TODO
+    println("Count of word 'Alice' using accumulator: " + counter.value) //TODO
     println("Actual count of word 'Alice': " + wordCounts("Alice"))
   }
+
 }

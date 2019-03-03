@@ -31,4 +31,5 @@ object BrokenAliceCountScala {
     println("Count of word 'Alice' using broken counter: " + brokenCounter)
     println("Actual count of word 'Alice': " + wordCounts("Alice"))
   }
+
 }

@@ -32,7 +32,7 @@ public class BroadcastTimeToLoadJava {
             JavaRDD<String> rdd = javaSparkContext.parallelize(Collections.nCopies(10, "element"));
 
             // Collect the small RDD so we can print the observed sizes locally.
-            rdd.map(o -> broadcast.value().size()).collect().forEach(size -> System.out.println(size));
+            rdd.map(o -> broadcast.value().size()).collect().forEach(System.out::println);
             System.out.println(String.format("Iteration %d took %.0f milliseconds", i, (System.nanoTime() - startTime) / 1E6));
         }
     }

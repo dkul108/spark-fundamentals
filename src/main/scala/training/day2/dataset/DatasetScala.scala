@@ -1,6 +1,7 @@
 package training.day2.dataset
 
-import org.apache.spark.sql.{Dataset, SparkSession}
+import org.apache.spark.sql.functions.collect_list
+import org.apache.spark.sql.{Dataset, SaveMode, SparkSession, functions}
 import training.Utils.DATA_DIRECTORY_PATH
 
 object DatasetScala {
@@ -52,18 +53,30 @@ object DatasetScala {
 
     //TODO
     //Print distinct three word counties from zipCode dataset
-    zipCodeDS.show()
+    zipCodeDS.select($"county").distinct().limit(3).show()
 
     //TODO
     //Print most popular names in person dataset
-    personDS.show()
+    personDS.groupBy($"firstName").agg(functions.count($"firstName").as("count")).sort($"count".desc).show(5)
 
     //TODO
     //Print number of people by state
     zipCodeDS.join(personDS, "zip")
+        .groupBy($"state").count().show(52)
+
 
     //TODO
     //Save to json file cities that have more then five companies
-    zipCodeDS.join(personDS, "zip")
+    zipCodeDS.join(personDS, "zip").groupBy("state")
+      .agg(collect_list($"companyName")).
+      //.agg($"companyName").
+      where(
+        functions.size($"companyName").gt(5)
+      ).
+      coalesce(1).
+      write.
+      mode(SaveMode.Overwrite).
+      json(DATA_DIRECTORY_PATH + "/my.json")
+
   }
 }

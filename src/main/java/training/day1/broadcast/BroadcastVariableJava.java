@@ -6,6 +6,7 @@ import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.SparkSession;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,14 +27,14 @@ public class BroadcastVariableJava {
         List<String> mainCharacters = Arrays.asList("Alice", "Hatter", "Rabbit");
         //TODO
         //Create broadcast variable for mainCharacters using sparkContext object
-        Broadcast<List<String>> broadcast = null;
+        Broadcast<List<String>> broadcast = sparkContext.broadcast(mainCharacters);
 
         //Filter line that contain at least one main character
-        JavaRDD<String> linesRdd = input.filter(line -> {
+        JavaRDD<String> linesRdd = input.filter(line ->
             //TODO
             //implement me
-            return false;
-        });
+                !Collections.disjoint(Arrays.asList(line.split(" ")), broadcast.getValue())
+        );
 
         List<String> lines = linesRdd.collect();
         lines.forEach(System.out::println);

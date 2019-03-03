@@ -7,7 +7,6 @@ import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Map;
 
 import static training.Utils.DATA_DIRECTORY_PATH;
@@ -38,19 +37,19 @@ public class RddGroupingAndJoiningJava {
 
         //TODO
         //Group persons by city
-        Map<String, Iterable<Person>> groupedByCity = null;
+        Map<String, Iterable<Person>> groupedByCity = personRdd.groupBy(p -> p.city).collectAsMap();
         for (Map.Entry<String, Iterable<Person>> entry : groupedByCity.entrySet()) {
             System.out.println(entry.getKey() + " persons: " + entry.getValue());
         }
 
         //TODO
         //Create pair rdd where key is a city and value is person
-        JavaPairRDD<String, Person> personPairRDD = null;
+        JavaPairRDD<String, Person> personPairRDD = personRdd.mapToPair(p -> new Tuple2<>(p.city, p));
 
         //TODO
         //Join two RDDs and print zip code for each person
-        JavaPairRDD<String, Tuple2<Person, String>> joined = null;
-        Map<Person, String> personToZipCode = null;
+        JavaPairRDD<String, Tuple2<Person, String>> joined = personPairRDD.join(zipcodeRDD);
+        Map<Person, String> personToZipCode = joined.mapToPair(pair -> new Tuple2<>(pair._2._1, pair._1)).collectAsMap();
         for (Map.Entry<Person, String> entry : personToZipCode.entrySet()) {
             System.out.println(entry.getKey() + " zip code: " + entry.getValue());
         }

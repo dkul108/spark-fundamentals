@@ -23,15 +23,17 @@ public class AccumulatorAliceCountJava {
         //TODO
         //Create counter using spark accumulator
         //hint: Accumulator can be created using spark.sparkContext()
+        LongAccumulator counter = spark.sparkContext().longAccumulator("counter");
 
         //Transforming text to words and counting alice words on the way
         JavaRDD<String> words = input
                 .flatMap(word -> Arrays.asList(word.split(" ")).iterator())
                 .map(word -> {
-                    String cleanWord = word.toLowerCase().replaceAll("[^a-z]", "");
-                    if (cleanWord.equals("alice")) {
+                    String cleanWord = word.toLowerCase().replaceAll("[^A-Za-z]", "");
+                    if (cleanWord.equalsIgnoreCase("alice")) {
                         //TODO
                         //increment
+                        counter.add(1L);
                     }
                     return cleanWord;
                 });
@@ -39,7 +41,7 @@ public class AccumulatorAliceCountJava {
         //Action that triggers computation
         Map<String, Long> wordCounts = words.countByValue();
 
-        System.out.println("Count of word 'Alice' using accumulator: " + null);//TODO
+        System.out.println("Count of word 'Alice' using accumulator: " + counter.value());//TODO
         System.out.println("Actual count of word 'Alice': " + wordCounts.get("alice"));
     }
 }
