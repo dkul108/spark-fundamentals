@@ -39,11 +39,6 @@ public class TwitterStreamingJava {
         setupOAuth();
         JavaDStream<Status> tweets = TwitterUtils.createStream(jstrc);
 
-//        Status status = null;
-//        HashtagEntity[] hashtagEntities = status.getHashtagEntities();
-//        hashtagEntities[0].getText();
-//        status.getText();
-
         //Print tweets
         tweets.map(Status::getText).print();
 
@@ -51,7 +46,6 @@ public class TwitterStreamingJava {
         //DStream of hashtags from the tweets DStream
         //Write an implementation based on `tweets` dstream instead of `jstrc.queueStream(new ArrayDeque<>());`
 //        JavaDStream<String> hashtags = jstrc.queueStream(new ArrayDeque<>());
-        //JavaDStream<String> hashtags = ((JavaReceiverInputDStream<Status>) tweets).receiverInputDStream().map(x=>x.);
         final JavaDStream<String> hashtags = tweets.flatMap((FlatMapFunction<Status, String>) status -> Optional.ofNullable(status.getHashtagEntities())
                 .filter(hashTag -> hashTag.length != 0)
                 .map(hte -> Arrays.stream(hte).map(HashtagEntity::getText))
@@ -69,7 +63,6 @@ public class TwitterStreamingJava {
         //Using `countedHashtags` get new dstream with hashtags
         //ordered by popularity where most popular hashtag are at the top
         //JavaDStream<String> trendingHashtags = jstrc.queueStream(new ArrayDeque<>());
-        //JavaDStream<String> trendingHashtags = countedHashtags
         JavaDStream<String> trendingHashtags = countedHashtags
                 .mapToPair((PairFunction<Tuple2<String, Long>, Long, String>) t2 -> new Tuple2<>(t2._2, t2._1))
                 .transformToPair((Function<JavaPairRDD<Long, String>, JavaPairRDD<Long, String>>) t2 -> t2.sortByKey(false))
