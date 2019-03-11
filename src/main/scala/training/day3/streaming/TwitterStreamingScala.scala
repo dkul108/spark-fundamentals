@@ -61,7 +61,7 @@ object TwitterStreamingScala {
 
   def formatTweet(tweet: Status): String = s"${tweet.getText}\n==========================================="
 
-    def setupOAuth(): Unit = {
+  def setupOAuth(): Unit = {
     val props = new Properties()
     val path = getClass.getResource("/configuration.properties").getPath
     props.load(new FileInputStream(path))
