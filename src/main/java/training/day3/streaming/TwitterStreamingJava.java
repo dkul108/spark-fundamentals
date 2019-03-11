@@ -88,6 +88,7 @@ public class TwitterStreamingJava {
             @Override
             public Boolean call(Status v1) throws Exception {
                 //TODO: at streaming we can't convert trendingHashtags to rdd or collection of Strings
+                //solution is just to repeat everything with Tuple3(hashtag, Status, hashTagCount) by changing tuple args places in positions in a touple per each step
                 return Collections.disjoint(Arrays.asList(v1.getHashtagEntities()), trendingHashtags);
             }
         });
