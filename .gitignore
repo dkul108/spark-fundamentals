@@ -77,3 +77,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 /.idea
+.~lock.SF-04-Streaming.pptx#
+spark-warehouse/
+src/main/java/training/day1/accumulators/testWorksheet.sc
+
